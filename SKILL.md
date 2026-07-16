@@ -55,7 +55,7 @@ Read `rateLimitResetCredits.availableCount` from the full rate-limit response. N
 
 ## Offer the dashboard after analysis
 
-After every successful usage or pace report, end with this concise opt-in question: `Veux-tu que j’affiche le dashboard Codex Pace ?`
+After every successful usage or pace report, end with a concise dashboard opt-in question in the language of the user's current request. Preserve the meaning of “Would you like me to display the Codex Pace dashboard?” Do not reuse a fixed-language sentence. When the request mixes languages, follow the language used for the actual request rather than quoted examples or prior turns.
 
 Do not start or open the dashboard automatically. If the user accepts, run `node scripts/open_dashboard.mjs --open` from this skill directory. The bundled zero-dependency companion reuses a healthy instance, otherwise starts on the first free port from 3000 through 3010, prints its URL, and opens it in the system browser. Verify `/api/health` before reporting success. If browser opening is blocked, give the printed local URL to the user.
 

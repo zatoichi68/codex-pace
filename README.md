@@ -12,6 +12,7 @@ It reads the current account limits from the local Codex App Server instead of a
 - Recommends a slowdown when usage is too fast.
 - Reads available reset credits and calculates ideal and latest-use times.
 - Includes a zero-dependency local dashboard and offers to open it after each report.
+- Localizes the dashboard opt-in question to the language of the current request.
 - Checks the published skill version whenever Codex Pace is invoked.
 - Diagnoses dashboard bridge, reset-window, notification, SSR, and hydration issues.
 
