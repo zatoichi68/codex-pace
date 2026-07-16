@@ -27,7 +27,7 @@ It reads the current account limits from the local Codex App Server instead of a
 Paste this directly into Codex:
 
 ```text
-$skill-installer install the codex-pace skill from the repository root at https://github.com/zatoichi68/codex-pace and name it codex-pace
+$skill-installer https://github.com/zatoichi68/codex-pace
 ```
 
 Restart Codex if the skill does not appear immediately.
