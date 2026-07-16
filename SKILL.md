@@ -7,6 +7,12 @@ description: Inspect, calculate, visualize, create, update, or diagnose Codex we
 
 Build conclusions from the local account response, not assumed plan limits. Keep account access local and expose only read-only usage data to the UI.
 
+## Check for updates first
+
+At the start of every invocation, run `node scripts/check_for_updates.mjs` from this skill directory. Continue the requested task when the network is unavailable. If an update is available, mention it briefly and offer to install it after completing the current request. Never download, overwrite, or execute an update without explicit user approval.
+
+When publishing changes to this skill, increment `VERSION` using semantic versioning so installed copies can detect the update.
+
 ## Route the task
 
 1. For a usage check or pace report, run `node scripts/inspect_codex_usage.mjs` from this skill directory. Add `--json` when machine-readable output helps.
@@ -72,14 +78,15 @@ Never call `Date.now()` independently in server and client initializers. Never d
 
 Run, in order:
 
-1. `node scripts/inspect_codex_usage.mjs`
-2. `node --check scripts/open_dashboard.mjs`
-3. `node --check assets/dashboard/app.js`
-4. the project's lint command when a separate dashboard workspace is being changed
-5. `npx tsc --noEmit` when that project uses TypeScript
-6. the production build when that project has one
-7. the local UI and bridge health checks
-8. one live `account/rateLimits/read` RPC through the bridge
-9. a hard browser reload followed by a fresh console-error check when browser control permits it
+1. `node scripts/check_for_updates.mjs`
+2. `node scripts/inspect_codex_usage.mjs`
+3. `node --check scripts/open_dashboard.mjs`
+4. `node --check assets/dashboard/app.js`
+5. the project's lint command when a separate dashboard workspace is being changed
+6. `npx tsc --noEmit` when that project uses TypeScript
+7. the production build when that project has one
+8. the local UI and bridge health checks
+9. one live `account/rateLimits/read` RPC through the bridge
+10. a hard browser reload followed by a fresh console-error check when browser control permits it
 
 Confirm that there are no hydration errors and that the rendered reset and projected-limit timestamps match before and after hydration. Keep local companion apps local unless the user explicitly requests a separate deployable architecture; a hosted page cannot directly launch the user's local Codex App Server.

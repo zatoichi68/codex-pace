@@ -12,6 +12,7 @@ It reads the current account limits from the local Codex App Server instead of a
 - Recommends a slowdown when usage is too fast.
 - Reads available reset credits and calculates ideal and latest-use times.
 - Includes a zero-dependency local dashboard and offers to open it after each report.
+- Checks the published skill version whenever Codex Pace is invoked.
 - Diagnoses dashboard bridge, reset-window, notification, SSR, and hydration issues.
 
 ## Requirements
@@ -31,6 +32,8 @@ $skill-installer https://github.com/zatoichi68/codex-pace
 ```
 
 Restart Codex if the skill does not appear immediately.
+
+On each invocation, Codex Pace compares its local `VERSION` file with the published version. It only reports whether an update exists; it never downloads or installs code without approval.
 
 ### Manual fallback
 
@@ -82,9 +85,11 @@ codex-pace/
 ├── assets/dashboard/
 ├── README.md
 ├── SKILL.md
+├── VERSION
 ├── agents/openai.yaml
 ├── references/protocol-and-pace.md
 └── scripts/
+    ├── check_for_updates.mjs
     ├── inspect_codex_usage.mjs
     └── open_dashboard.mjs
 ```
