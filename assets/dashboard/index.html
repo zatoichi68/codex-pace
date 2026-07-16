@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Codex Pace</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell" data-state="syncing">
+      <header class="topbar">
+        <div class="brand"><span class="mark">✦</span> CODEX <span>/</span> PACE</div>
+        <div class="actions">
+          <span id="status" class="status"><i></i> Syncing</span>
+          <button id="refresh" class="icon-button" type="button" aria-label="Refresh usage">↻</button>
+          <button id="alerts" class="button" type="button">Enable alerts</button>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Weekly allowance</p>
+          <h1 id="headline">Reading your Codex pace…</h1>
+          <p id="subhead" class="subhead">The companion is connecting to your local account.</p>
+        </div>
+        <div id="paceBadge" class="pace-badge">
+          <span id="paceValue">—</span>
+          <small>PACE</small>
+        </div>
+      </section>
+
+      <section class="metrics">
+        <article class="card usage-card">
+          <div class="card-head"><span>Usage</span><strong id="used">—</strong></div>
+          <div class="track"><span id="usageBar"></span><i id="targetMarker"></i></div>
+          <div class="split-note"><span>Window elapsed <b id="elapsed">—</b></span><span>Target <b id="target">—</b></span></div>
+        </article>
+        <article class="card">
+          <span class="label">Projected limit</span>
+          <strong id="projected" class="large-value">—</strong>
+          <span id="projectedNote" class="muted">Waiting for live usage</span>
+        </article>
+        <article class="card">
+          <span class="label">Natural reset</span>
+          <strong id="reset" class="large-value">—</strong>
+          <span id="countdown" class="muted">—</span>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card recommendation">
+          <div>
+            <p class="eyebrow">Recommended pace</p>
+            <h2 id="recommendation">Calculating…</h2>
+          </div>
+          <div class="dial" id="dial"><span id="dialValue">—</span><small>sustainable</small></div>
+        </article>
+
+        <article class="card reset-card">
+          <div class="card-head">
+            <div><p class="eyebrow">Reset strategy</p><h2>Available credits</h2></div>
+            <strong id="credits" class="credit-count">—</strong>
+          </div>
+          <div id="resetPlan" class="reset-plan"><p class="empty">Waiting for live usage…</p></div>
+          <p class="privacy">Read-only. Codex Pace never consumes a reset credit.</p>
+        </article>
+      </section>
+
+      <footer>
+        <span>Local companion · account data stays on this Mac</span>
+        <span id="updated">Not synced yet</span>
+      </footer>
+    </main>
+    <script src="/app.js" defer></script>
+  </body>
+</html>

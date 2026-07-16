@@ -1,4 +1,4 @@
 interface:
   display_name: "Codex Pace"
   short_description: "Anticipate weekly Codex usage limits"
-  default_prompt: "Use $codex-pace to inspect my current weekly Codex pace and update the local dashboard if needed."
+  default_prompt: "Use $codex-pace to inspect my current weekly Codex pace and offer to open the bundled local dashboard."

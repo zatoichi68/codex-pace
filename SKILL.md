@@ -10,9 +10,10 @@ Build conclusions from the local account response, not assumed plan limits. Keep
 ## Route the task
 
 1. For a usage check or pace report, run `node scripts/inspect_codex_usage.mjs` from this skill directory. Add `--json` when machine-readable output helps.
-2. For a dashboard build or update, inspect the target workspace first. Preserve its package manager and architecture. If `.openai/hosting.json` exists and the Sites skill is available, use it.
-3. For a live-data failure, validate the inspection script before changing UI code. This separates account/App Server failures from bridge or rendering failures.
-4. For protocol drift, run `codex app-server generate-ts --experimental --out <temporary-directory>` and inspect the current account rate-limit types before patching.
+2. For the bundled dashboard, run `node scripts/open_dashboard.mjs --open` from this skill directory only after the user accepts the dashboard offer. It needs no package installation or separate workspace.
+3. For a separate dashboard build or update, inspect the target workspace first. Preserve its package manager and architecture. If `.openai/hosting.json` exists and the Sites skill is available, use it.
+4. For a live-data failure, validate the inspection script before changing UI code. This separates account/App Server failures from bridge or rendering failures.
+5. For protocol drift, run `codex app-server generate-ts --experimental --out <temporary-directory>` and inspect the current account rate-limit types before patching.
 
 Read [references/protocol-and-pace.md](references/protocol-and-pace.md) when implementing the bridge, pace model, or UI states.
 
@@ -50,7 +51,9 @@ Read `rateLimitResetCredits.availableCount` from the full rate-limit response. N
 
 After every successful usage or pace report, end with this concise opt-in question: `Veux-tu que j’affiche le dashboard Codex Pace ?`
 
-Do not start or open the dashboard automatically. If the user accepts, reuse a healthy running UI and bridge when available; otherwise start the companion app with `npm run pace` from the Codex Pace workspace. Prefer the current workspace when its `package.json` identifies Codex Pace, then use the directory named by `CODEX_PACE_WORKSPACE` when that environment variable is set. If neither location is available, ask the user for the dashboard workspace instead of guessing a personal path. Wait for the local service to become healthy, then display `http://localhost:3000` in the in-app browser. If the app reports another local port, use and report that URL instead.
+Do not start or open the dashboard automatically. If the user accepts, run `node scripts/open_dashboard.mjs --open` from this skill directory. The bundled zero-dependency companion reuses a healthy instance, otherwise starts on the first free port from 3000 through 3010, prints its URL, and opens it in the system browser. Verify `/api/health` before reporting success. If browser opening is blocked, give the printed local URL to the user.
+
+Use a separate `CODEX_PACE_WORKSPACE` dashboard only when the user explicitly asks to develop or validate that project. The bundled companion is the default for ordinary viewing.
 
 ## Keep SSR deterministic
 
@@ -70,11 +73,13 @@ Never call `Date.now()` independently in server and client initializers. Never d
 Run, in order:
 
 1. `node scripts/inspect_codex_usage.mjs`
-2. the project's lint command
-3. `npx tsc --noEmit` when TypeScript is present
-4. the production build
-5. the local UI and bridge health checks
-6. one live `account/rateLimits/read` RPC through the bridge
-7. a hard browser reload followed by a fresh console-error check
+2. `node --check scripts/open_dashboard.mjs`
+3. `node --check assets/dashboard/app.js`
+4. the project's lint command when a separate dashboard workspace is being changed
+5. `npx tsc --noEmit` when that project uses TypeScript
+6. the production build when that project has one
+7. the local UI and bridge health checks
+8. one live `account/rateLimits/read` RPC through the bridge
+9. a hard browser reload followed by a fresh console-error check when browser control permits it
 
 Confirm that there are no hydration errors and that the rendered reset and projected-limit timestamps match before and after hydration. Keep local companion apps local unless the user explicitly requests a separate deployable architecture; a hosted page cannot directly launch the user's local Codex App Server.

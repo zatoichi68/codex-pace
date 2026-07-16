@@ -11,7 +11,7 @@ It reads the current account limits from the local Codex App Server instead of a
 - Predicts the date and time the limit will be reached.
 - Recommends a slowdown when usage is too fast.
 - Reads available reset credits and calculates ideal and latest-use times.
-- Offers to display an optional local dashboard after each report.
+- Includes a zero-dependency local dashboard and offers to open it after each report.
 - Diagnoses dashboard bridge, reset-window, notification, SSR, and hydration issues.
 
 ## Requirements
@@ -59,13 +59,13 @@ Codex may also activate the skill automatically when a request concerns weekly u
 
 ## Dashboard
 
-The dashboard application is optional and is not included in this repository. After a successful usage report, the skill asks whether to display it.
-
-Set `CODEX_PACE_WORKSPACE` to the dashboard project directory when it is not the current workspace:
+The companion dashboard is included in the skill. It needs no `npm install` and no separate workspace:
 
 ```bash
-export CODEX_PACE_WORKSPACE="/path/to/codex-pace-dashboard"
+node scripts/open_dashboard.mjs --open
 ```
+
+It starts locally on the first free port from `3000` through `3010`, opens the browser, and refreshes live account data once per minute.
 
 ## Privacy and safety
 
@@ -79,11 +79,14 @@ export CODEX_PACE_WORKSPACE="/path/to/codex-pace-dashboard"
 
 ```text
 codex-pace/
+├── assets/dashboard/
 ├── README.md
 ├── SKILL.md
 ├── agents/openai.yaml
 ├── references/protocol-and-pace.md
-└── scripts/inspect_codex_usage.mjs
+└── scripts/
+    ├── inspect_codex_usage.mjs
+    └── open_dashboard.mjs
 ```
 
 See the [Codex skills documentation](https://learn.chatgpt.com/docs/build-skills) for more information about skill discovery and invocation.
