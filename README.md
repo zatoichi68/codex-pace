@@ -96,3 +96,9 @@ codex-pace/
 ```
 
 See the [Codex skills documentation](https://learn.chatgpt.com/docs/build-skills) for more information about skill discovery and invocation.
+
+## Policies and support
+
+- [Privacy policy](PRIVACY.md)
+- [Terms of use](TERMS.md)
+- [Support](SUPPORT.md)
