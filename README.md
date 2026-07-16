@@ -22,25 +22,24 @@ It reads the current account limits from the local Codex App Server instead of a
 
 ## Install
 
-### Personal skill
+### One-step install
 
-Install the skill for your user account:
+Paste this directly into Codex:
+
+```text
+$skill-installer install the codex-pace skill from the repository root at https://github.com/zatoichi68/codex-pace and name it codex-pace
+```
+
+Restart Codex if the skill does not appear immediately.
+
+### Manual fallback
+
+To install with Git instead:
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
 git clone https://github.com/zatoichi68/codex-pace.git "$HOME/.agents/skills/codex-pace"
 ```
-
-### Repository-scoped skill
-
-Install it only for one repository:
-
-```bash
-mkdir -p .agents/skills
-git clone https://github.com/zatoichi68/codex-pace.git .agents/skills/codex-pace
-```
-
-Codex detects skill changes automatically. Restart Codex if the skill does not appear.
 
 ## Use
 
